@@ -4,6 +4,8 @@ import morgan from "morgan";
 import cors from "cors";
 import dotenv from "dotenv";
 
+import productRoutes from "./routes/productRoute.js";
+
 dotenv.config();
 
 const app = express();
@@ -20,9 +22,7 @@ app.use(helmet());
 // Ele ajuda a depurar problemas, entender o comportamento da aplicação e monitorar o desempenho.
 app.use(morgan("dev"));
 
-app.get("/test", (req, res) => {
-  res.send("hello from the test route");
-});
+app.use("/api/products", productRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
