@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import productRoutes from "./routes/productRoute.js";
 import { sql } from "./config/db.js";
+import { protectionMiddleware } from "./middleware/protectionMiddleware.js";
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ app.use(helmet());
 //morgan('dev') é uma prática recomendada para monitorar as requisições HTTP que chegam ao servidor.
 // Ele ajuda a depurar problemas, entender o comportamento da aplicação e monitorar o desempenho.
 app.use(morgan("dev"));
+
+app.use(protectionMiddleware);
 
 app.use("/api/products", productRoutes);
 
