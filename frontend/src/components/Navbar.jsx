@@ -1,7 +1,35 @@
+import { useResolvedPath } from "react-router-dom";
+import Logo from "./Logo";
+import { ShoppingBagIcon } from "lucide-react";
+import ThemeSelector from "./ThemeSelector";
+
 function Navbar() {
+  const { pathname } = useResolvedPath();
+  const isHomePage = pathname === "/";
+
   return (
-    <div>
-      <h1>Navbar</h1>
+    <div className="bg-base-100/80 backdrop-blur-lg border-b border-base-conten/10 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto">
+        <div className="navbar px-4 min-h-[4rem] justify-between">
+          <Logo />
+
+          {/* RIGTH SECTION */}
+          <div className="flex items-center gap-4">
+            <ThemeSelector />
+            {isHomePage && (
+              <div className="indicator">
+                <div className="p-2 rounded-full hover:bg-base-200 transition-colors">
+                  <ShoppingBagIcon className="size-5" />
+
+                  <span className="badge badge-sm badge-primary indicator-item">
+                    8
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
