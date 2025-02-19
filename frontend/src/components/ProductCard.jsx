@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { EditIcon, Trash2Icon } from "lucide-react";
-import { useProductStore } from "../store/useProductStore";
+import ConfirmDeleteModal from "./ConfirmDeleteModal";
 
 function ProductCard({ product }) {
-  const { deleteProduct } = useProductStore();
   return (
     <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
       {/* PRODUCT IMAGE */}
@@ -20,6 +19,11 @@ function ProductCard({ product }) {
         <p className="text-2xl font-bold text-primary">
           R$ {Number(product.price).toFixed(2).replace(".", ",")}
         </p>
+        <ConfirmDeleteModal
+          title="Confirm delete product?"
+          message="Are you sure you want to delete this product?"
+          id={product.id}
+        />
 
         {/* CARD ACTION */}
         <div className="card-actions justify-end mt-4">
@@ -32,7 +36,11 @@ function ProductCard({ product }) {
 
           <button
             className="btn btn-sm btn-error btn-outline"
-            onClick={() => deleteProduct(product.id)}
+            onClick={() =>
+              document
+                .getElementById("modal_delete_confirm_product")
+                .showModal()
+            }
           >
             <Trash2Icon className="size-4" />
           </button>
